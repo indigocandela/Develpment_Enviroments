@@ -9,6 +9,15 @@ require("dotenv-flow").config();
 app.get("/api/welcome",(req,res)=>{
     res.status(200).send({message: "Welcome to the MEN Restful API"});
 })
+mongoose.connect
+(  
+    process.env.DBHOST,
+    {
+        useUnifiedTopology:true,
+        useNewUrlParser:true
+    }
+);
+mongoose.connection.once('open',()=>console.log('Connected succesfully to MongoDb'));
 
 const PORT=process.env.PORT || 4000;
 app.listen(PORT,function(){
