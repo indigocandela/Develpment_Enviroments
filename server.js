@@ -2,6 +2,7 @@ const express=require("express");
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const app=express();
+const {verifyToken}=require("./validation");
 
 //the  routes
 const duckRoutes=require("./routes/duck");
@@ -30,7 +31,7 @@ app.get("/api/welcome",(req,res)=>{
 })
 
 //here goes post,put,delete->Crud
-app.use("/api/ducks",duckRoutes);
+app.use("/api/ducks",verifyToken,duckRoutes);
 
 app.use("/api/tamer",authRoutes);
 

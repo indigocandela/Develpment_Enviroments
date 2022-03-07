@@ -1,6 +1,7 @@
 const router= require("express").Router();
 const duck= require("../models/duck");
 
+
 //Crud operations
 
 //Create a duck
