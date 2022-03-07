@@ -1,0 +1,211 @@
+openapi: 3.0.0
+info:
+  title: MEN REST API
+  description: MongoDB ExpressJS NodeJS REST API
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api/
+    description: Localhost development server 
+components:
+  securitySchemes:
+    ApiKeyAuth:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header       # can be "header", "query" or "cookie"
+      name: auth-token
+
+  schemas:
+    Duck:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        color:
+          type: string
+        price:
+          type: number
+        inStock:
+          type: boolean
+    
+    Tamer:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        date:
+          type: string
+
+paths:
+
+  /tamer/register:
+    post:
+      summary: Register a new Tamer
+      description: Register a new Tamer in the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Tamer"
+
+      responses:
+        201:
+          description: Tamer created succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  _id:
+                    type: string
+
+  /tamer/login:
+    post:
+      summary: Login as a Tamer
+      description: Login a Tamer in order to get JWT token (auth-token)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      
+      responses:
+        200:
+          description: Tamer logged in succesfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  data:
+                    type: string
+
+
+  /Ducks:
+    get:
+      summary: Retrieves a list of Ducks
+      description: Retrieves a list of Ducks as JSON objects.
+      security:
+        - ApiKeyAuth: []
+      responses:
+        200:
+          description: A list of Duck JSON objects in an array.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Duck"
+    
+    post:
+      summary: Create a new Duck
+      description: Create a new Duck
+      security:
+        - ApiKeyAuth: []      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Duck"
+
+      responses:
+        201:
+          description: Duck created succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Duck"
+  
+  /Ducks/{id}:
+    get:
+      summary: Check on a specific duck
+      description: Retrieves a specific Duck based on its id.
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      responses:
+        200:
+          description: A Duck in the format of a JSON object.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Duck"
+   
+    put:
+      summary: Updates a specific Duck
+      description: Updates a specific Duck based on it id
+      security:
+        - ApiKeyAuth: []            
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Duck"
+
+      responses:
+        201:
+          description: Duck updated succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Duck"
+
+    delete:
+      summary: Deletes a specific Duck
+      description: Deletes a specific Duck based on it id
+      security:
+        - ApiKeyAuth: []            
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: MongoDB id
+          schema:
+            type: string      
+
+      responses:
+        201:
+          description: Duck deleted succesfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Duck"
+
+  
+
+
+    
+
+    

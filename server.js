@@ -4,6 +4,14 @@ const bodyParser=require("body-parser");
 const app=express();
 const {verifyToken}=require("./validation");
 
+//swagger deps
+const swaggerUi=require('swagger-ui-express');
+const yaml=require('yamljs');
+
+//setup swagger
+const swaggerDefinition=yaml.load('./swagger.yaml');
+app.use('/api/docs',swaggerUi.serve,swaggerUi.setup(swaggerDefinition));
+
 //the  routes
 const duckRoutes=require("./routes/duck");
 const authRoutes=require("./routes/auth");
@@ -12,6 +20,7 @@ require("dotenv-flow").config();
 
 //parse request of content type J-SON
 app.use(bodyParser.json());
+
 
 
 mongoose.connect
