@@ -3,8 +3,9 @@ const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const app=express();
 
-//the duck routes
+//the  routes
 const duckRoutes=require("./routes/duck");
+const authRoutes=require("./routes/auth");
 
 require("dotenv-flow").config();
 
@@ -30,6 +31,10 @@ app.get("/api/welcome",(req,res)=>{
 
 //here goes post,put,delete->Crud
 app.use("/api/ducks",duckRoutes);
+
+app.use("/api/tamer",authRoutes);
+
+
 
 const PORT=process.env.PORT || 4000;
 app.listen(PORT,function(){
