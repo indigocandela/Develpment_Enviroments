@@ -1,0 +1,27 @@
+{
+  "name": "rest-api-inigo",
+  "version": "1.0.0",
+  "description": "nodejs restapi",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indigocandela/Rest-api-inigo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/indigocandela/Rest-api-inigo/issues"
+  },
+  "homepage": "https://github.com/indigocandela/Rest-api-inigo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cross-env": "^7.0.3",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.4"
+  }
+}
