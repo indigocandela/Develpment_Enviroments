@@ -6,7 +6,7 @@ let duckSchema =new Schema(
     name:{type:String},
     color:{type:String},
     size:{type:String},
-    price:{type:Numbre},
+    price:{type:Number},
     inStock:{type:Boolean}
 }   
 );
