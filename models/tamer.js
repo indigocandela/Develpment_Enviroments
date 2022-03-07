@@ -33,3 +33,4 @@ let tamerSchema=new Schema(
 
     }
 )
+module.exports=mongoose.model("tamer",tamerSchema);

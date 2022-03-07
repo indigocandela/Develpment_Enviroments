@@ -1,7 +1,8 @@
 
 const router= require("express").Router();
-const tamer= require("../models/tamer");
+const Tamer= require("../models/tamer");
 const { registerValidation }=require('../validation');
+const bcrypt= require('bcrypt');
 
 //registration
 router.post("/register",async(req,res)=>{
@@ -15,9 +16,28 @@ router.post("/register",async(req,res)=>{
     }
 
     //check if the email is alredy registerd
-    const emailExist= await tamer.findOne({email: req.body.email});
+    const emailExist= await Tamer.findOne({email: req.body.email});
     if(emailExist){
         return res.status(400).json({error: "Email alredy exists"});
+    }
+    //hash the password
+
+    const salt =await bcrypt.genSalt(10);
+    const password=await bcrypt.hash(req.body.password,salt);
+
+    // Create a tamer object 
+    const tamer=new Tamer({
+        name:req.body.name,
+        email:req.body.email,
+        password
+    });
+
+    try{
+        const savedTamer=await tamer.save();
+        res.json({error:null,data:savedTamer._id});
+
+    }catch(error){
+        res.status(400),json({error})
     }
 });
 
