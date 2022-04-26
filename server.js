@@ -18,7 +18,7 @@ const authRoutes=require("./routes/auth");
 
 require("dotenv-flow").config();
 
-//parse request of content type J-SON
+//parse request of content type J-SONs
 app.use(bodyParser.json());
 
 
