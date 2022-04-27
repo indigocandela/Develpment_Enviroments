@@ -191,7 +191,7 @@ paths:
         - in: path
           name: id
           required: true
-          description: MongoDB id
+          description: MongoDB id 
           schema:
             type: string      
 
