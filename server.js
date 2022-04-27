@@ -40,7 +40,7 @@ app.get("/api/welcome",(req,res)=>{
 })
 
 //here goes post,put,delete->Crud
-app.use("/api/ducks",verifyToken,duckRoutes);
+app.use("/api/ducks",duckRoutes);
 
 app.use("/api/tamer",authRoutes);
 
