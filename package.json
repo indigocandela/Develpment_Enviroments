@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/indigocandela/Rest-api-inigo.git"
+    "url": "git+https://github.com/indigocandela/Develpment_Enviroments.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/indigocandela/Rest-api-inigo/issues"
+    "url": "https://github.com/indigocandela/Develpment_Enviroments.git/issues"
   },
-  "homepage": "https://github.com/indigocandela/Rest-api-inigo#readme",
+  "homepage": "",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.2",
