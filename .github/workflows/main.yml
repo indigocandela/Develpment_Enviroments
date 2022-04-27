@@ -16,17 +16,17 @@ jobs:
           node_version: [14.x]
 
       steps:
-        -name: Checkout
+        - name: Checkout
          uses: actions/checkout@v2
          with:
           fetch-depth:0
 
-        -name: Use Node.JS ${{ matrix.node-version }}
+        - name: Use Node.JS ${{ matrix.node-version }}
          uses: actions/setup-node@v2
          with:
           node_version: ${{ matrix.node-version }}
 
-        -name: NPM install, build and test
+        - name: NPM install, build and test
         run: |
           npm install 
           npm test
