@@ -13,7 +13,7 @@ before((done)=> {
     done();
 });
 after((done)=> {
-    Duck.deleteMany({},function(err) {});
+    //Duck.deleteMany({},function(err) {});
     done();
 });
 
@@ -71,14 +71,56 @@ describe ('/First Test Collection',function(){
             done();
         });
     });
+    it('it should GET the Duck  by the given id', (done) => {
+        let duck = new Duck({ name:"Test duck 2 ",color:"green",size:1000,price:10, inStock:true });
+        duck.save((err, duck) => {
+           chai.request(server)
+          .get('/api/ducks/' + duck.id)
+          .send(duck)
+          .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('name');
+                res.body.should.have.property('color');
+                res.body.should.have.property('size');
+                res.body.should.have.property('price');
+                res.body.should.have.property('_id').eql(duck.id);
+            done();
+          });
+        });
+
+    });
+
+    it('it should UPDATE a duck given the id', (done) => {
+        let duck = new Duck({name:"Test duck 3 ",color:"red",size:100,price:25, inStock:true })
+        duck.save((err, duck) => {
+              chai.request(server)
+              .put('/api/ducks/' + duck.id)
+              .send({name:"Test duck 3 updt ",color:"red",size:100,price:25, inStock:true })
+              .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Duck was succesesfully updated.');
+                    //res.body.duck.should.have.property('price').eql(25);
+                done();
+              });
+        });
+    });
+
+    it('it should DELETE a duck given the id', (done) => {
+        let duck = new Duck({name:"Test duck 4 ",color:"orange",size:100,price:25, inStock:true })
+        duck.save((err, duck) => {
+              chai.request(server)
+              .delete('/api/ducks/' + duck.id)
+              .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Duck was succesesfully deleted.');
+                done();
+              });
+        });
+    });
+});
+
 
     
-
-    it('should test two values....', function(){
-        //actual test
-        let expectedVal=10;
-        let actualVal=10;
-
-        expect(actualVal).to.be.equal(expectedVal);
-    })
-})
