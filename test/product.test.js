@@ -173,7 +173,7 @@ describe ('/Testing Tamers register and login',function(){
         });
     });
     
-
+// whaterver
 /*    it('logins a tamer',(done)=>{
 
         let tamer= new Tamer({ name:"Test tamer 2", email:"testtamer2@test.tst",password:"12345678"
