@@ -1,6 +1,7 @@
 process.env.NODE_ENV ='test';
 
 const Duck=require('../models/duck');
+const Tamer=require('../models/tamer');
 const chai=require('chai');
 const expect =chai.expect;
 const should =chai.should();
@@ -10,14 +11,16 @@ const server=require('../server');
 chai.use(chaiHttp);
 before((done)=> {
     Duck.deleteMany({},function(err) {});
+    Tamer.deleteMany({},function(err) {});
     done();
 });
 after((done)=> {
     //Duck.deleteMany({},function(err) {});
+    //Tamer.deleteMany({},function(err) {});
     done();
 });
 
-describe ('/First Test Collection',function(){
+describe ('/Testing ducks CRUD',function(){
 
 
     it('test default API welcome route...',(done)=>{
@@ -58,6 +61,22 @@ describe ('/First Test Collection',function(){
         .send(duck)
         .end((err,res) => {
             res.should.have.status(201);
+            done();
+        });
+    });
+    it('tries to create a duck wrong',(done)=>{
+
+        let duck={
+            name:"Test duck",
+            size:1000,
+            price:10,
+            inStock:true
+        }
+        chai.request(server)
+        .post('/api/ducks')
+        .send(duck)
+        .end((err,res) => {
+            res.should.have.status(500);
             done();
         });
     });
@@ -121,6 +140,54 @@ describe ('/First Test Collection',function(){
         });
     });
 });
+describe ('/Testing Tamers register and login',function(){
 
+    it('creates a tamer',(done)=>{
 
+        let tamer={
+            name:"Test tamer",
+            email:"testtamer@test.tst",
+            password:"12345678",
+        }
+        chai.request(server)
+        .post('/api/tamer/register')
+        .send(tamer)
+        .end((err,res) => {
+            res.should.have.status(200);
+            done();
+        });
+    });
+    it('tries to create a tamer wrong',(done)=>{
+
+        let tamer={
+            name:"Test tamer",
+            email:"testtamer@test.tst",
+            password:"123456",
+        }
+        chai.request(server)
+        .post('/api/tamer/register')
+        .send(tamer)
+        .end((err,res) => {
+            res.should.have.status(400);
+            done();
+        });
+    });
     
+
+/*    it('logins a tamer',(done)=>{
+
+        let tamer= new Tamer({ name:"Test tamer 2", email:"testtamer2@test.tst",password:"12345678"
+        })
+        tamer.save((err, tamer) => {
+        chai.request(server)
+        .post('/api/tamer/login')
+        .send({ email:"testtamer2@test.tst",password:"12345678"})
+        .end((err,res) => {
+            res.body.should.have.property('message').eql('What ever this should say');
+            res.should.have.status(200);
+            done();
+          });
+        });
+    });
+    */
+});

@@ -50,14 +50,14 @@ router.post("/login",async(req,res)=>{
     const{error}=loginValidation(req.body);
 
     if(error){
-        return res.status(400).json({error: error.details[0].message});
+        return res.status(401).json({error: error.details[0].message});
     }
 
     //validate email:
     const tamer= await Tamer.findOne({email: req.body.email});
 
     if(!tamer){
-        return res.status(400).json({error: "Email is wrong"});
+        return res.status(402).json({error: "Email is wrong"});
     }
 
     //once the email exits then we check the password
@@ -65,7 +65,7 @@ router.post("/login",async(req,res)=>{
     const validPassword=await bcrypt.compare(req.body.password, tamer.password);
 
     if(!validPassword){
-        return res.status(400).json({error: "Password is wrong"});
+        return res.status(403).json({error: "Password is wrong"});
     }
 
     //create the token and pass it around
