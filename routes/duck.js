@@ -42,7 +42,7 @@ router.get("/",(req,res)=>{
             res.status(500).send({message:err.message});
         }
 */
-    
+    data=req.body;
     duck.find()
     .then(data=>{res.send(data);})
     .catch(err=>{res.status(500).send({message:err.message});})
