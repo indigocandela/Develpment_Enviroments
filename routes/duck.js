@@ -1,5 +1,8 @@
 const router= require("express").Router();
 const duck= require("../models/duck");
+const NodeCache=require('node-cache');
+
+const cache=new NodeCache({stdTTL:600});
 
 
 //Crud operations
@@ -17,11 +20,33 @@ router.post("/",(req,res)=>{
 //See all ducks
 
 router.get("/",(req,res)=>{
-    data=req.body;
+/*
+        try{
+
+            //try to get data from the cache
+            let ducksCache=cache.get('allDucks')
+
+            if(!ducksCache){
+                let data= duck.find();
+
+                console.log("no chce data found, Fetching from DB...");
+                const timeToLiveSecs=10;
+                cache.set('allDucks',data,timeToLiveSecs);
+            }
+            
+            
+            res.send(mapArray(data));
+
+        }
+        catch(err){
+            res.status(500).send({message:err.message});
+        }
+*/
     
     duck.find()
     .then(data=>{res.send(data);})
     .catch(err=>{res.status(500).send({message:err.message});})
+    
 });
 
 //See all  ducks in Stock
