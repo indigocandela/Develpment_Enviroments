@@ -9,16 +9,7 @@ const chaiHttp =require('chai-http');
 const server=require('../server');
 
 chai.use(chaiHttp);
-before((done)=> {
-    Duck.deleteMany({},function(err) {});
-    Tamer.deleteMany({},function(err) {});
-    done();
-});
-after((done)=> {
-    //Duck.deleteMany({},function(err) {});
-    //Tamer.deleteMany({},function(err) {});
-    done();
-});
+
 
 describe ('/Testing ducks CRUD',function(){
 
